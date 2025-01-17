@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sampleapi-deployment
+spec:
+  selector:
+    matchLabels:
+      app: sampleapi-deployment-pods
+  template:
+    metadata:
+      labels:
+        app: sampleapi-deployment-pods
+    spec:
+      containers:
+      - name: sampleapi-deployment-container
+        image: sampleapi-merchantapi:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+      - name: sampleapi-lookupapi-container
+        image: sampleapi-lookupapi:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+      - name: sampleapi-locationapi-container
+        image: sampleapi-locationapi:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80

@@ -1,0 +1,54 @@
+version: '3.4'
+services:
+
+    location:
+     image: mcr.microsoft.com/mssql/server:2017-latest
+     environment:
+       ACCEPT_EULA: "Y"
+       SA_PASSWORD: "P@ssw0rd"
+       MSSQL_PID: Express
+     ports:
+       - "9000:1433"
+        
+        
+    lookup:
+     image: mcr.microsoft.com/mssql/server:2017-latest
+     environment:
+       ACCEPT_EULA: "Y"
+       SA_PASSWORD: "P@ssw0rd"
+       MSSQL_PID: Express
+     ports:
+       - "9100:1433"
+       
+    merchant:
+     image: mcr.microsoft.com/mssql/server:2017-latest
+     environment:
+       ACCEPT_EULA: "Y"
+       SA_PASSWORD: "P@ssw0rd"
+       MSSQL_PID: Express
+     ports:
+       - "9200:1433"
+       
+    locationapi:
+     build:
+      context: ./location
+      dockerfile: Dockerfile
+     ports:
+       - "9090:80"
+       
+    lookupapi:
+     build:
+      context: ./lookup
+      dockerfile: Dockerfile
+     ports:
+       - "9080:80"
+       
+    merchantapi:
+     build:
+      context: ./merchant
+      dockerfile: Dockerfile
+     ports:
+       - "9070:80"
+        
+
+      
